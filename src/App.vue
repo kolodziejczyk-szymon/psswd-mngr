@@ -1,15 +1,10 @@
 <template>
-  <LoginForm></LoginForm>
+  <router-view/>
 </template>
 
 <script>
-import LoginForm from './components/LoginForm.vue';
-
 export default {
   name: 'App',
-  components: {
-    LoginForm
-  }
 }
 </script>
 
@@ -21,6 +16,7 @@ export default {
   margin: 0;
 }
 
+
 #app {
   margin-top: 30vh;
   font-family: 'Open Sans', sans-serif;
@@ -28,5 +24,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #eb4634;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>

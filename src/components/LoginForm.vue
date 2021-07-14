@@ -4,8 +4,11 @@
         <h3 class="login-form__title">Log in</h3>
         <input class="login-form__input" name="email" type="text" placeholder="Email address" v-model="name">
         <input class="login-form__input" name="password" type="password" placeholder="Password" v-model="password">
+        <span>Don't have an account yet? Register </span>
+        <router-link class="register-link" to="/register">here.</router-link>
         <button class="login-form__submit" type="submit">Submit</button>
       </form>
+
 
   </div>
 </template>
@@ -15,6 +18,7 @@
 import axios from "axios";
 
 export default {
+    name: 'LoginForm',
     data () {
         return {
             email: '',
@@ -91,6 +95,12 @@ export default {
             font-weight: bold;
             padding: 10px 25px;
         }
+    }
+
+    .register-link {
+        font-weight: bold;
+        text-decoration: none;
+        color: #eb4634;
     }
 
 </style>
