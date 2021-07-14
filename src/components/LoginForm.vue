@@ -1,15 +1,10 @@
 <template>
   <div class="container">
-      <form @submit="loginUser" action="post">
-          <div class="form-control">
-              <label for="email"></label>
-              <input name="email" type="text" v-model="name">
-          </div>
-          <div class="form-control">
-              <label for="password"></label>
-              <input name="password" type="password" v-model="password">
-          </div>
-          <button type="submit">Login</button>
+      <form class="login-form" @submit="loginUser" action="post">
+        <h3 class="login-form__title">Log in</h3>
+        <input class="login-form__input" name="email" type="text" placeholder="Email address" v-model="name">
+        <input class="login-form__input" name="password" type="password" placeholder="Password" v-model="password">
+        <button class="login-form__submit" type="submit">Submit</button>
       </form>
 
   </div>
@@ -33,11 +28,22 @@ export default {
                 .post('127.0.0.1:8000/login', {
                     email: this.email,
                     password: this.password
-                })
+                }, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                }
+                
+                )
                 .then(response => {
                     console.log(response.data);
-                }).catch(e => {
-                    console.log(e);
+                }).catch(error => {
+                    if(error.response) {
+                        this.error = error.response;
+                    } else {
+                        this.error = 'Unknown.'
+                    }
+                    console.log(error);
                 }).finally(() => {
                     this.isLoading = false;
                 });
@@ -46,6 +52,45 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+
+    .container {
+        height: 100%;
+        width: 100%;
+        margin: auto;
+    }
+
+    .login-form {
+        margin: auto;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5px;
+
+        &__title {
+            margin: 0 auto;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        &__input {
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #eb4634; 
+            padding: 10px;
+        }
+
+        &__submit {
+            margin: 5px auto;
+            width: 50%; 
+            color: white;
+            border-radius: 5px;
+            border: 1px solid #eb4634;
+            background-color: #eb4634;
+            font-weight: bold;
+            padding: 10px 25px;
+        }
+    }
 
 </style>
