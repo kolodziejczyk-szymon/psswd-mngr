@@ -104,4 +104,19 @@ export default {
         color: #eb4634;
     }
 
+    @media (min-width:600px)  {
+        .container {
+            width: 70%;
+        }
+    }
+    @media (min-width:801px)  {
+        .container {
+            width: 60%;
+        }
+    }
+    @media (min-width:1025px) {
+        .container {
+            width: 50%;
+        }
+    }
 </style>
