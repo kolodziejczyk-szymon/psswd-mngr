@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-      <form class="login-form" @submit="loginUser" action="post">
+      <form class="login-form" @submit.prevent="login" method="post">
         <h3 class="login-form__title">Log in</h3>
-        <input class="login-form__input" name="email" type="text" placeholder="Email address" v-model="name">
+        <input class="login-form__input" name="email" type="text" placeholder="Email address" v-model="email">
         <input class="login-form__input" name="password" type="password" placeholder="Password" v-model="password">
         <span>Don't have an account yet? Register </span>
         <router-link class="register-link" to="/register">here.</router-link>
@@ -15,42 +15,16 @@
 
 <script>
 
-import axios from "axios";
-
 export default {
     name: 'LoginForm',
     data () {
         return {
             email: '',
             password: '',
-            loading: true,
         }
-    },
-    methods: {
-        loginUser() {
-            axios
-                .post('127.0.0.1:8000/login', {
-                    email: this.email,
-                    password: this.password
-                }, {
-                    headers: {
-                        'content-type': 'application/x-www-form-urlencoded'
-                    }
-                }
-                
-                )
-                .then(response => {
-                    console.log(response.data);
-                }).catch(error => {
-                    if(error.response) {
-                        this.error = error.response;
-                    } else {
-                        this.error = 'Unknown.'
-                    }
-                    console.log(error);
-                }).finally(() => {
-                    this.isLoading = false;
-                });
+    }, methods: {
+        login() {
+            this.$emit('logged-in', [this.email, this.password])
         }
     }
 }

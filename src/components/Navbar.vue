@@ -1,7 +1,7 @@
 <template>
     <div class="navigation">
-        <router-link class="navigation__link" to="/">Logout</router-link>
-        <router-link class="navigation__link" to="/dashboard">Dashboard</router-link>
+        <router-link class="navigation__link" to="/register">Register</router-link>
+        <router-link class="navigation__link" to="/">Dashboard</router-link>
     </div>
 </template>
 

@@ -1,10 +1,66 @@
 <template>
-  <router-view/>
+  <router-view @logged-in="loginUser" />
+  <button @click="decrypt(this.password)">ddd</button>
 </template>
 
 <script>
+import axios from "axios";
+import Aes from 'crypto-js/aes'
+import { enc } from 'crypto-js'
+
+const baseURL = "http://localhost:8080";
+
+const service = axios.create({
+  baseURL
+});
+
 export default {
   name: 'App',
+  data () {
+    return {
+      login: '',
+      password: '',
+      auth: '',
+    }
+  },
+  methods: {
+    loginUser(auth) {
+      
+      this.login = auth[0]
+      this.password = auth[1]
+
+      service
+        .post('/login', {
+            login : auth[0],
+            password : auth[1]
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        
+        )
+        .then(response => {
+
+          console.log(response.data)
+
+            this.auth = response.data.auth;
+
+            console.log(this.auth)
+        }).catch(error => {
+            if(error.response) {
+                error = error.response.data;
+            } else {
+                error = 'Unknown.'
+            }
+            console.log(error);
+        })
+},
+    decrypt(password) {
+      console.log(Aes.decrypt(this.auth, password).toString(enc.Utf8))
+      return Aes.decrypt(this.auth, password).toString(enc.Utf8);
+    }
+  }
 }
 </script>
 
