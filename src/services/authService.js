@@ -16,20 +16,6 @@ export async function registerUser(email, password) {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }
-        
-        )
-        .then(response => {
-            console.log(response.data);
-        }).catch(error => {
-            if(error.response) {
-                error = error.response.data;
-            } else {
-                error = 'Unknown.'
-            }
-            console.log(error);
-        }).finally(() => {
-            console.log("is loading")
-        });
+        })
 }
 

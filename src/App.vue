@@ -20,7 +20,6 @@ export default {
     return {
       login: '',
       password: '',
-      auth: '',
     }
   },
   methods: {
@@ -42,22 +41,20 @@ export default {
         )
         .then(response => {
 
-          console.log(response.data)
-
-            this.auth = response.data.auth;
-
-            console.log(this.auth)
+          this.$store.dispatch('logIn', {
+              email: response.data.email, 
+              password: response.data.password,
+              auth: response.data.auth
+            })
         }).catch(error => {
             if(error.response) {
-                error = error.response.data;
+              this.$store.dispatch('logIn', null)
             } else {
                 error = 'Unknown.'
             }
-            console.log(error);
         })
-},
+  },
     decrypt(password) {
-      this.$store.commit('increment');
       return Aes.decrypt(this.auth, password).toString(enc.Utf8);
     }
   }
