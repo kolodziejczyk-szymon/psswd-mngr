@@ -7,7 +7,7 @@ export async function registerUser(email, password) {
     window.crypto.getRandomValues(randomKey);
     const auth = Aes.encrypt(window.btoa(randomKey), password).toString();
 
-    service
+    return service
         .post('/registration', {
             email,
             password,
@@ -16,6 +16,23 @@ export async function registerUser(email, password) {
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then(response => {
+            return response.data
         })
 }
 
+export async function loginUser(login, password) {
+
+    return service
+      .post('/login', {
+          login,
+          password
+      }, {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(response => {
+        return response.data
+      })
+}

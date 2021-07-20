@@ -8,8 +8,6 @@
         <router-link class="register-link" to="/register">here.</router-link>
         <button class="login-form__submit" type="submit">Submit</button>
       </form>
-
-
   </div>
 </template>
 
@@ -17,6 +15,7 @@
 
 export default {
     name: 'LoginForm',
+    emits: ['logged-in'],
     data () {
         return {
             email: '',

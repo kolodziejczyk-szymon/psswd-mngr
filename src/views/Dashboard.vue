@@ -1,5 +1,5 @@
 <template>
-  <Navbar></Navbar>
+  <Navbar @log-out="$emit('log-out')"></Navbar>
   <Accounts :accounts="accounts"></Accounts>
 </template>
 
@@ -7,9 +7,9 @@
 import Navbar from '../components/Navbar.vue';
 import Accounts from '../components/Accounts.vue';
 
-
 export default {
   name: 'Dashboard',
+  emits: ['log-out'],
   components: {
     Navbar,
     Accounts,

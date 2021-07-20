@@ -1,21 +1,16 @@
 <template>
-  <router-view @logged-in="loginUser" />
-  <button @click="decrypt(this.password)">ddd</button>
+  <router-view @logged-in="loginUser" @log-out="logoutUser"/>
+  <!-- <button @click="decrypt(this.password)">ddd</button> -->
 </template>
 
 <script>
-import axios from "axios";
-import Aes from 'crypto-js/aes'
-import { enc } from 'crypto-js'
-
-const baseURL = "http://localhost:8080";
-
-const service = axios.create({
-  baseURL
-});
+// import Aes from 'crypto-js/aes'
+// import { enc } from 'crypto-js'
 
 export default {
   name: 'App',
+  // nie jestem pewien, czy emits powinno się w tym miejscu znajdować
+  emits: ['log-out', 'logged-in'],
   data () {
     return {
       login: '',
@@ -23,41 +18,32 @@ export default {
     }
   },
   methods: {
-    loginUser(auth) {
-      
-      this.login = auth[0]
-      this.password = auth[1]
 
-      service
-        .post('/login', {
-            login : auth[0],
-            password : auth[1]
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        
-        )
-        .then(response => {
-
-          this.$store.dispatch('logIn', {
-              email: response.data.email, 
-              password: response.data.password,
-              auth: response.data.auth
-            })
-        }).catch(error => {
-            if(error.response) {
-              this.$store.dispatch('logIn', null)
-            } else {
-                error = 'Unknown.'
-            }
-        })
-  },
-    decrypt(password) {
-      return Aes.decrypt(this.auth, password).toString(enc.Utf8);
+    async loginUser(auth) {
+      await this.$store.dispatch('logIn', {
+        login: auth[0], 
+        password: auth[1]
+      })
+      this.authenticateUser()
+    },
+    authenticateUser() {
+      if (this.$store.state.status.loggedIn) {
+        this.$router.push('/');
+      } else {
+        this.$router.push('/login');
+      }
+    },
+    logoutUser() {
+      this.$store.dispatch('logoutUser');
+      this.authenticateUser()
     }
-  }
+    // decrypt(password) {
+    //   return Aes.decrypt(this.auth, password).toString(enc.Utf8);
+    // }
+  }, 
+  created() {
+    this.authenticateUser()
+  },
 }
 </script>
 

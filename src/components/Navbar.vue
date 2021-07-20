@@ -1,13 +1,12 @@
 <template>
     <div class="navigation">
-        <router-link class="navigation__link" to="/register">Register</router-link>
-        <router-link class="navigation__link" to="/">Dashboard</router-link>
+        <button class="navigation__link" @click="$emit('log-out')">Log out</button>
     </div>
 </template>
 
 <script>
 export default {
-
+    emits: ['log-out'],
 }
 </script>
 
@@ -25,6 +24,8 @@ export default {
         padding: 10px 20px;
 
         &__link {
+            background-color: transparent;
+            border: none;
             text-decoration: none;
             color: white
         }

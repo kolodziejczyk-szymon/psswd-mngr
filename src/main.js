@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
+import { loginUser, registerUser } from './services/authService'
 import router from './router'
 import App from './App.vue'
 
@@ -13,56 +14,52 @@ const store = createStore({
       }
     },
     actions: {
-        logIn ({ state }, payload) {
-
-            
-
+        async logIn ({ state }, payload) {
+            let user = await loginUser(payload.login, payload.password)
             if (payload){
-                state.status.loggedIn = true;
-                state.user = payload;
-                console.log('success')
+                this.commit('loginSuccess', { state, payload: user})
             } else {
-                state.status.loggedIn = false;
-                state.user = null;
-                console.log('failure')
+                this.commit('loginFailure', { state })
             }
         },
-        register (state) {
-            if(state)
-                this.commit('registerSuccess')
-            else
-                this.commit('registerFailure')
+        async register({ state }, payload) {
+            await registerUser(payload.login, payload.password)
+            if (payload){
+                this.commit('loginSuccess', { state, payload: payload})
+            } else {
+                this.commit('loginFailure', { state })
+            }
         },
-        logout () {
+        logoutUser () {
             this.commit('logout')
         }
     },
     mutations: {
-        loginSuccess(state, user) {
+        loginSuccess(state, payload) {
             state.status.loggedIn = true;
-            state.user = user;
-            console.log('success')
+            state.user = payload.user;
         },
         loginFailure(state) {
             state.status.loggedIn = false;
             state.user = null;
-            console.log('failure')
         },
-        logout(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        registerSuccess(state) {
-            state.status.loggedIn = false;
+        registerSuccess(state, payload) {
+            state.status.loggedIn = true;
+            state.user = payload.user;
         },
         registerFailure(state) {
             state.status.loggedIn = false;
-        }
+            state.user = null;
+        },
+
+        logout() {
+            this.state.status.loggedIn = false;
+            this.state.user = null;
+        },
     }
 })
 
 const app = createApp(App);
-
 
 app.use(router);
 app.use(store);

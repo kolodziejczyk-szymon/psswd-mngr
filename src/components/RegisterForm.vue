@@ -28,6 +28,7 @@ export default {
     methods: {
         register() {
             registerUser(this.email, this.password);
+            this.$router.push('/login');
         }
    }
 }
