@@ -57,7 +57,7 @@ export default {
         })
 },
     decrypt(password) {
-      console.log(Aes.decrypt(this.auth, password).toString(enc.Utf8))
+      this.$store.commit('increment');
       return Aes.decrypt(this.auth, password).toString(enc.Utf8);
     }
   }
