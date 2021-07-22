@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import { loginUser, registerUser } from './services/authService'
+import { createAccount } from './services/accountService'
 import router from './router'
 import App from './App.vue'
+
 
 const store = createStore({
     state () {
@@ -25,9 +27,22 @@ const store = createStore({
         async register({ state }, payload) {
             await registerUser(payload.login, payload.password)
             if (payload){
-                this.commit('loginSuccess', { state, payload: payload})
+                this.commit('registerSuccess', { state, payload: payload})
             } else {
-                this.commit('loginFailure', { state })
+                this.commit('registerFailure', { state })
+            }
+        },
+        async addAccount({ state }, payload) {
+            let account = await createAccount(
+                payload[0],
+                payload[1],
+                payload[2]
+            )
+            console.log(account)
+            if (payload){
+                this.commit('creationSuccess', { state, payload: payload})
+            } else {
+                this.commit('creationFailure', { state })
             }
         },
         logoutUser () {
@@ -51,7 +66,12 @@ const store = createStore({
             state.status.loggedIn = false;
             state.user = null;
         },
-
+        accSuccess() {
+            console.log('Success.')
+        },
+        accFailure() {
+            console.log('Failure.')
+        },
         logout() {
             this.state.status.loggedIn = false;
             this.state.user = null;

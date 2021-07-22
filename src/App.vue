@@ -1,5 +1,9 @@
 <template>
-  <router-view @logged-in="loginUser" @log-out="logoutUser"/>
+  <router-view 
+  @logged-in="loginUser"
+  @log-out="logoutUser"
+  @create-account="createAccount"
+  @registered="registerUser"/>
   <!-- <button @click="decrypt(this.password)">ddd</button> -->
 </template>
 
@@ -10,7 +14,7 @@
 export default {
   name: 'App',
   // nie jestem pewien, czy emits powinno się w tym miejscu znajdować
-  emits: ['log-out', 'logged-in'],
+  emits: ['log-out', 'logged-in', 'create-account'],
   data () {
     return {
       login: '',
@@ -18,13 +22,27 @@ export default {
     }
   },
   methods: {
-
     async loginUser(auth) {
       await this.$store.dispatch('logIn', {
         login: auth[0], 
         password: auth[1]
       })
       this.authenticateUser()
+    },
+    async registerUser(payload) {
+      console.log(payload)
+      await this.$store.dispatch('register', {
+        login: payload[0],
+        password: payload[1],
+      })
+    },
+    async createAccount(payload) {
+      console.log("createAccount")
+      await this.$store.dispatch('addAccount', {
+        url: payload[0],
+        login: payload[0],
+        password: payload[0]
+      })
     },
     authenticateUser() {
       if (this.$store.state.status.loggedIn) {

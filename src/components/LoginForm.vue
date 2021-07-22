@@ -21,7 +21,8 @@ export default {
             email: '',
             password: '',
         }
-    }, methods: {
+    },
+    methods: {
         login() {
             this.$emit('logged-in', [this.email, this.password])
         }

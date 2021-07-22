@@ -1,46 +1,42 @@
 <template>
-  <div class="container">
-      <form class="register-form" @submit.prevent="register" method="post">
-        <h3 class="register-form__title">Register</h3>
-        <input class="register-form__input" name="email" type="text" placeholder="Email address" v-model="email">
-        <input class="register-form__input" name="password" type="password" placeholder="Password" v-model="password">
-        <input class="register-form__input" name="password" type="password" placeholder="Confirm password" v-model="confirmPassword">
-        <span>Already have an account? Log in </span>
-        <router-link class="login-link" to="/login">here.</router-link>
-        <button class="register-form__submit" type="submit">Submit</button>
+    <div class="container">
+      <form class="login-form" @submit.prevent="createAccount" method="post">
+        <h3 class="login-form__title">add an account</h3>
+        <input class="login-form__input" name="url" type="text" placeholder="Url address" v-model="url">
+        <input class="login-form__input" name="login" type="text" placeholder="Login" v-model="login">
+        <input class="login-form__input" name="password" type="password" placeholder="Password" v-model="password">
+        <button class="login-form__submit" type="submit">Submit</button>
       </form>
   </div>
 </template>
 
 <script>
-
 export default {
-    name: 'RegisterForm',
-    emits: ['registered'],
+    name: 'AccountForm',
+    emits: ['create-account'],
     data () {
         return {
-            email: '',
+            url: '',
+            login: '',
             password: '',
-            confirmPassword: '',
         }
-    },
+    }, 
     methods: {
-        register() {
-            this.$emit('registered', [this.email, this.password])
+        createAccount() {
+            this.$emit('create-account', [this.url, this.login, this.password])
         }
-   }
+    }
 }
 </script>
 
 <style scoped lang="scss">
-
     .container {
         height: 100%;
         width: 100%;
         margin: auto;
     }
 
-    .register-form {
+    .login-form {
         margin: auto;
         width: 90%;
         display: flex;
@@ -73,12 +69,11 @@ export default {
         }
     }
 
-    .login-link {
+    .register-link {
         font-weight: bold;
         text-decoration: none;
         color: #eb4634;
     }
-
     @media (min-width:600px)  {
         .container {
             width: 70%;
