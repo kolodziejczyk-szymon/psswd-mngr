@@ -29,7 +29,7 @@ const store = createStore({
         async register({ state }, payload) {
             await registerUser(payload.login, payload.password)
             if (payload){
-                this.commit('registerSuccess', { state, payload})
+                this.commit('registerSuccess', { state })
             } else {
                 this.commit('registerFailure', { state })
             }
@@ -63,9 +63,9 @@ const store = createStore({
             state.status.loggedIn = false;
             state.user = null;
         },
-        registerSuccess(state, payload) {
-            state.status.loggedIn = true;
-            state.user = payload;
+        registerSuccess(state) {
+            state.status.loggedIn = false;
+            state.user = null;
         },
         registerFailure(state) {
             state.status.loggedIn = false;

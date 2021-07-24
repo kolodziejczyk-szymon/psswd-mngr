@@ -1,5 +1,5 @@
 <template>
-  <router-view 
+  <router-view
   @logged-in="loginUser"
   @log-out="logoutUser"
   @create-account="createAccount"
@@ -17,13 +17,15 @@ export default {
   emits: ['log-out', 'logged-in', 'create-account'],
   watch: {
     $route () {
-      this.authenticateUser()
+      if(this.$route.path == '/') {
+        this.authenticateUser()
+      }
     }
   },
   methods: {
     async loginUser(auth) {
       await this.$store.dispatch('logIn', {
-        login: auth[0], 
+        login: auth[0],
         password: auth[1]
       })
       this.authenticateUser()
@@ -59,18 +61,17 @@ export default {
     // }
   }, 
   created() {
+    this.authenticateUser()
   },
 }
 </script>
 
 <style lang="scss">
-
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 * {
   margin: 0;
 }
-
 
 #app {
   margin: 5vh 0 30vh 0;
@@ -79,18 +80,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #eb4634;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
