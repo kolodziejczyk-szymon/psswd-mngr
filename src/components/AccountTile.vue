@@ -9,9 +9,11 @@
     <div v-if="showModal" class="modal">
         <div class="modal__mask" @click="toggleModal">
             <div class="modal__content">
-                <span>{{ account.name }} </span>
-                <span>{{ account.url }}</span>
-                nananan
+                <ul class="labels">
+                    <li class="labels__el">url.</li>
+                    <li class="labels__el">username.</li>
+                    <li class="labels__el">password.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -38,9 +40,13 @@ export default {
 
 <style scoped lang="scss">
     .account-content {
-        margin: 0 10px;
+        margin: 5px 10px;
         display: flex;
+        flex-direction: row;
         justify-content: space-evenly;
+        border: 1px solid #eb4634;
+        border-radius: 5px;
+        padding: 5px 10px;
 
         &__show {
             margin: auto;
@@ -86,6 +92,22 @@ export default {
             background-color: #fff;
             border-radius: 5px;
             padding: 20px;
+        }
+    }
+
+    .labels {
+        margin: 0;
+        width: 100%;
+        list-style-type: none;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 0;
+        &__el {
+            margin: 5px auto;
+            width: 90%;
+            border: 1px solid #eb4634;
+            border-radius: 5px;
+            padding: 10px;
         }
     }
 </style>
