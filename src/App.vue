@@ -15,10 +15,9 @@ export default {
   name: 'App',
   // nie jestem pewien, czy emits powinno się w tym miejscu znajdować
   emits: ['log-out', 'logged-in', 'create-account'],
-  data () {
-    return {
-      login: '',
-      password: '',
+  watch: {
+    $route () {
+      this.authenticateUser()
     }
   },
   methods: {
@@ -30,18 +29,18 @@ export default {
       this.authenticateUser()
     },
     async registerUser(payload) {
-      console.log(payload)
       await this.$store.dispatch('register', {
         login: payload[0],
         password: payload[1],
       })
     },
     async createAccount(payload) {
-      console.log("createAccount")
       await this.$store.dispatch('addAccount', {
-        url: payload[0],
-        login: payload[0],
-        password: payload[0]
+        name: payload[0],
+        description: payload[1],
+        url: payload[2],
+        username: payload[3],
+        password: payload[4]
       })
     },
     authenticateUser() {
@@ -60,7 +59,6 @@ export default {
     // }
   }, 
   created() {
-    this.authenticateUser()
   },
 }
 </script>
@@ -75,7 +73,7 @@ export default {
 
 
 #app {
-  margin-top: 30vh;
+  margin: 5vh 0 30vh 0;
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

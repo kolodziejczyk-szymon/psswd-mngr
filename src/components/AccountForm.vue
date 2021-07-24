@@ -2,8 +2,10 @@
     <div class="container">
       <form class="login-form" @submit.prevent="createAccount" method="post">
         <h3 class="login-form__title">add an account</h3>
+        <input class="login-form__input" name="name" type="text" placeholder="Name" v-model="name">
+        <input class="login-form__input" name="description" type="text" placeholder="description" v-model="description">
         <input class="login-form__input" name="url" type="text" placeholder="Url address" v-model="url">
-        <input class="login-form__input" name="login" type="text" placeholder="Login" v-model="login">
+        <input class="login-form__input" name="username" type="text" placeholder="username" v-model="username">
         <input class="login-form__input" name="password" type="password" placeholder="Password" v-model="password">
         <button class="login-form__submit" type="submit">Submit</button>
       </form>
@@ -16,14 +18,18 @@ export default {
     emits: ['create-account'],
     data () {
         return {
+            name: '',
+            description: '',
             url: '',
-            login: '',
+            username: '',
             password: '',
         }
     }, 
     methods: {
         createAccount() {
-            this.$emit('create-account', [this.url, this.login, this.password])
+            this.$emit('create-account', [
+                this.name, this.description, this.url, this.username, this.password
+            ])
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="account" v-for="account in accounts" v-bind:key="account">
-      <h3>{{ account.name }}</h3>
+      <h4>{{ account.name }}</h4>
       <p>{{ account.description }}</p>
       <span><i>{{ account.url }}</i></span>
   </div>
@@ -12,9 +12,19 @@ export default {
     name: 'Accounts',
     components: {
     },
-    props: {
-        accounts: Array,
+    data() {
+        return {
+        }
+    },
+    computed: {
+    accounts () {
+      return this.$store.state.accounts
     }
+  },
+  mounted () {
+    console.log(this.accounts)
+    
+  }
 }
 </script>
 
