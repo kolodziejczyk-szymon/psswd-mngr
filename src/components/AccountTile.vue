@@ -2,39 +2,56 @@
     <div class="account-content">
         <div class="account-text">
             <span class="account-text__title">{{ account.name }}</span>
-            <p class="account-text__desc">{{ account.description }}</p>
         </div>
-        <button class="account-content__show" @click="toggleModal">Show</button>
+        <button class="account-content__show" @click="toggleEdit">Show</button>
+        <button class="account-content__show" @click="toggleDisplay">Show</button>
     </div>
     <div v-if="showModal" class="modal">
         <div class="modal__mask">
             <div class="modal__content">
-                <ul class="labels">
-                    <li class="labels__el">{{ account.url }}</li>
-                    <li class="labels__el">{{ account.username }}</li>
-                    <li class="labels__el">{{ account.password }}</li>
-                </ul>
-                <button class="account-content__show" @click="toggleModal">x</button>
-                <button class="account-content__show" @click="deleteAccount(account.id)">Delete</button>
+                <div v-if="info" class="display-content">
+                    <div class="modal__header">
+                        <span class="modal__title">
+                            {{ account.name }}
+                        </span>
+                        <button class="modal__close" @click="toggleModal">x</button>
+                    </div>
+                    <ul class="labels">
+                        <li class="labels__el">{{ account.description }}</li>
+                        <li class="labels__el">{{ account.url }}</li>
+                        <li class="labels__el">{{ account.username }}</li>
+                        <li class="labels__el">{{ account.password }}</li>
+                        <li class="labels__el--delete" @click="deleteAccount(account.id)"> Delete </li>
+                    </ul>
+                </div>
+                <div v-if="edit" class="display-edition">
+                    <AccountForm :emitName="'edit-account'" @close-modal="toggleModal"/>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-// import { enc } from 'crypto-js'
-// import Aes from 'crypto-js/aes'
+import AccountForm from '../components/AccountForm.vue';
+import { enc } from 'crypto-js'
+import Aes from 'crypto-js/aes'
 
 export default {
     name: "AccountTile",
     data () {
         return {
             showModal: false,
+            edit: false,
+            info: false
         }
     },
     props: {
         account: Object
-    },   
+    },
+    components: {
+        AccountForm,
+    }, 
     computed: {
         auth() {
             return this.$store.state.user.auth
@@ -44,13 +61,26 @@ export default {
         toggleModal() {
             this.showModal = !this.showModal
         },
+        toggleEdit() {
+            this.toggleModal()
+            if (this.edit == false) {
+                this.edit = true
+                this.info = false
+            }
+        },
+        toggleDisplay() {
+            this.toggleModal()
+            if (this.info == false) {
+                this.info = true
+                this.edit = false
+            }
+        },
         async deleteAccount(id) {
             await this.$store.dispatch('deleteAccount', {id})
     },
-        // decrypt(message) {
-        //     let decrypted = Aes.decrypt(message, this.auth).toString(enc.Utf8);
-        //     console.log(decrypted);
-        // }
+        decrypt(message) {
+            return Aes.decrypt(message, this.auth).toString(enc.Utf8);
+        }
     }
 }
 </script>
@@ -85,9 +115,6 @@ export default {
         &__title {
             font-weight: bold;
         }
-        &__desc {
-            font-size: .75rem
-        }
     }
 
     .modal {
@@ -102,14 +129,33 @@ export default {
             background-color: rgba(0, 0, 0, 0.5);
             transition: opacity 0.5s ease;
         }
-        &__content {
-            z-index: 2;
+        &__content {            
             display: flex;
+            flex-direction: column;
             margin: 15% auto;
             width: 80%; 
             background-color: #fff;
             border-radius: 5px;
             padding: 20px;
+        }
+
+        &__header {
+            display: flex;
+            padding: 10px;
+        }
+
+        &__title {
+            font-weight: bold;
+        }
+
+        &__close {
+            margin-left: auto;
+            flex-basis: 25%;
+            background-color: #eb4634;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            padding: 5px;
         }
     }
 
@@ -126,6 +172,15 @@ export default {
             border: 1px solid #eb4634;
             border-radius: 5px;
             padding: 10px;
+            &--delete {
+                margin: 5px auto;
+                width: 60%;
+                border: none;
+                border-radius: 5px;
+                background-color: #eb4634;
+                color: white;
+                padding: 10px;
+            }
         }
     }
 </style>

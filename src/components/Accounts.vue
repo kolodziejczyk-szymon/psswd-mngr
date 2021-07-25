@@ -19,6 +19,9 @@ export default {
     accounts () {
       return this.$store.state.accounts
     }
+  },
+  mounted () {
+    console.log(this.accounts)
   }
 }
 </script>

@@ -1,13 +1,11 @@
 <template>
-  <Navbar @log-out="$emit('log-out')" @add-new="toggleForm"></Navbar>
-  <Accounts :accounts="accounts"></Accounts>
-
-  
+  <Navbar :email="user.email" @log-out="$emit('log-out')" @add-new="toggleForm"></Navbar>
+  <Accounts></Accounts>
   <div v-if="showForm" class="modal">
     <div class="modal__mask" >
       <div class="modal__content">
         <button @click="toggleForm">awdawdawdawd</button>
-        <AccountForm @create-account="createAccount"/>
+        <AccountForm :emitName="'create-account'" @create-account="createAccount"/>
       </div>
     </div>
   </div>
@@ -41,6 +39,7 @@ export default {
   methods: {
     createAccount(payload) {
       this.$emit('create-account', payload)
+      this.toggleForm()
     },
     toggleForm() {
       this.showForm = !this.showForm

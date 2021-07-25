@@ -31,7 +31,8 @@ export default {
       await this.$store.dispatch('register', {
         login: payload[0],
         password: payload[1],
-      })
+      }).then(this.$router.push('login'))
+      
     },
     async createAccount(payload) {
       await this.$store.dispatch('addAccount', {

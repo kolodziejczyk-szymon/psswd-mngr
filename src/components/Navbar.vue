@@ -1,7 +1,7 @@
 <template>
     <div class="navigation">
-        <div class="navigation__link">Hello, {{ user.email }}</div>
-        <button class="navigation__link" @click="$emit('add-new')">Add new</button>
+        <div class="navigation__link">Hello, {{ email }}</div>
+        <button class="navigation__link" @click="$emit('add-new')">Add</button>
         <button class="navigation__link" @click="$emit('log-out')">Log out</button>
     </div>
 </template>
@@ -9,11 +9,9 @@
 <script>
 export default {
     emits: ['log-out'],
-    computed: {
-        user() {
-        return this.$store.state.user
-        }
-  },
+    props: {
+        email: String
+    },
 }
 </script>
 
@@ -31,6 +29,7 @@ export default {
         padding: 10px 20px;
 
         &__link {
+            flex-basis: 30%;
             background-color: transparent;
             border: none;
             font-size: .75rem;

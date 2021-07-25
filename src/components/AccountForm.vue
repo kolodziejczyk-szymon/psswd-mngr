@@ -1,6 +1,13 @@
 <template>
     <div class="container">
       <form class="login-form" @submit.prevent="createAccount" method="post">
+        <div class="form__header">
+            <span class="form__title">
+            {{ emitName }}
+            </span>
+            <button class="form__close" @click="$emit('close-modal')">x</button>
+        </div>
+
         <h3 class="login-form__title">add an account</h3>
         <input class="login-form__input" name="name" type="text" placeholder="Name" v-model="name">
         <input class="login-form__input" name="description" type="text" placeholder="description" v-model="description">
@@ -16,6 +23,9 @@
 export default {
     name: 'AccountForm',
     emits: ['create-account'],
+    props: {
+        emitName: String
+    },
     data () {
         return {
             name: '',
@@ -24,7 +34,7 @@ export default {
             username: '',
             password: '',
         }
-    }, 
+    },
     methods: {
         createAccount() {
             this.$emit('create-account', [
