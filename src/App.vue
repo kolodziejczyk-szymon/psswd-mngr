@@ -4,12 +4,9 @@
   @log-out="logoutUser"
   @create-account="createAccount"
   @registered="registerUser"/>
-  <!-- <button @click="decrypt(this.password)">ddd</button> -->
 </template>
 
 <script>
-// import Aes from 'crypto-js/aes'
-// import { enc } from 'crypto-js'
 
 export default {
   name: 'App',
@@ -56,9 +53,6 @@ export default {
       this.$store.dispatch('logoutUser');
       this.authenticateUser()
     }
-    // decrypt(password) {
-    //   return Aes.decrypt(this.auth, password).toString(enc.Utf8);
-    // }
   }, 
   created() {
     this.authenticateUser()

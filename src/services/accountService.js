@@ -13,17 +13,16 @@ export async function getUsersAccounts(email) {
     })   
 }
 
-
 export async function createAccount(name, description, url, username, password, email) {
 
     return service
         .post('/account', {
+            name: name,
             description,
-            name,
             password,
             url,
             username,
-            email,
+            email
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +54,7 @@ export async function updateAccount(id, name, description, url, username, passwo
 export async function deleteAccount(id) {
 
     return service
-    .delete(`/account/delete${id}`, {
+    .delete(`/account/delete/${id}`, {
         headers: {
             'Content-Type': 'application/json'
         }

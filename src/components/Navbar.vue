@@ -1,8 +1,8 @@
 <template>
     <div class="navigation">
-        <button class="navigation__link" @click="$emit('log-out')">Log out</button>
-        <button class="navigation__link" @click="$emit('add-new')">Add new</button>
         <div class="navigation__link">Hello, {{ user.email }}</div>
+        <button class="navigation__link" @click="$emit('add-new')">Add new</button>
+        <button class="navigation__link" @click="$emit('log-out')">Log out</button>
     </div>
 </template>
 

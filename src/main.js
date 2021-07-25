@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import { loginUser, registerUser } from './services/authService'
-import { createAccount, getUsersAccounts } from './services/accountService'
+import { createAccount, getUsersAccounts, deleteAccount } from './services/accountService'
 import router from './router'
 import App from './App.vue'
 
@@ -35,18 +35,27 @@ const store = createStore({
             }
         },
         async addAccount({ state }, payload) {
-            await createAccount(
-                payload.name,
-                payload.description,
-                payload.url,
-                payload.username,
-                payload.password,
-                state.user.email,
-            )
             if (payload){
-                this.commit('creationSuccess', { state , payload})
-        } else {
+                let newAccount = await createAccount(
+                    payload.name,
+                    payload.description,
+                    payload.url,
+                    payload.username,
+                    payload.password,
+                    state.user.email,
+                    state.user.auth
+                )
+                this.commit('creationSuccess', { state, newAccount } )
+            } else {
                 this.commit('creationFailure', { state })
+            }
+        },
+        async deleteAccount({ state }, payload) {
+            await deleteAccount(payload.id)
+            if (payload) {
+                this.commit('deletionSuccess', { state , payload })
+            } else {
+                this.commit('deletionFailure')
             }
         },
         logoutUser () {
@@ -71,17 +80,17 @@ const store = createStore({
             state.status.loggedIn = false;
             state.user = null;
         },
-        creationSuccess(state, {payload}) {
-            state.accounts.push({
-                name : payload.name,
-                description : payload.description,
-                url : payload.url,
-                username : payload.username,
-                password: payload.password,
-                email: state.user.email,
-            })
+        creationSuccess(state, payload) {
+            state.accounts.push(payload.newAccount.data)
         },
         creationFailure() {
+            console.log('Failure.')
+        },
+        deletionSuccess(state, {payload}) {
+            console.log('Success.')
+            state.accounts = state.accounts.filter(item => item.id !== payload.id);
+        },
+        deletionFailure() {
             console.log('Failure.')
         },
         logout() {

@@ -7,19 +7,24 @@
         <button class="account-content__show" @click="toggleModal">Show</button>
     </div>
     <div v-if="showModal" class="modal">
-        <div class="modal__mask" @click="toggleModal">
+        <div class="modal__mask">
             <div class="modal__content">
                 <ul class="labels">
-                    <li class="labels__el">url.</li>
-                    <li class="labels__el">username.</li>
-                    <li class="labels__el">password.</li>
+                    <li class="labels__el">{{ account.url }}</li>
+                    <li class="labels__el">{{ account.username }}</li>
+                    <li class="labels__el">{{ account.password }}</li>
                 </ul>
+                <button class="account-content__show" @click="toggleModal">x</button>
+                <button class="account-content__show" @click="deleteAccount(account.id)">Delete</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+// import { enc } from 'crypto-js'
+// import Aes from 'crypto-js/aes'
+
 export default {
     name: "AccountTile",
     data () {
@@ -29,11 +34,23 @@ export default {
     },
     props: {
         account: Object
-    }, 
+    },   
+    computed: {
+        auth() {
+            return this.$store.state.user.auth
+        }
+    },
     methods: {
         toggleModal() {
             this.showModal = !this.showModal
-        }
+        },
+        async deleteAccount(id) {
+            await this.$store.dispatch('deleteAccount', {id})
+    },
+        // decrypt(message) {
+        //     let decrypted = Aes.decrypt(message, this.auth).toString(enc.Utf8);
+        //     console.log(decrypted);
+        // }
     }
 }
 </script>
@@ -86,6 +103,7 @@ export default {
             transition: opacity 0.5s ease;
         }
         &__content {
+            z-index: 2;
             display: flex;
             margin: 15% auto;
             width: 80%; 

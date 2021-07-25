@@ -11,7 +11,7 @@ export async function registerUser(email, password) {
         .post('/registration', {
             email,
             password,
-            auth
+            auth,
         }, {
             headers: {
                 'Content-Type': 'application/json'
