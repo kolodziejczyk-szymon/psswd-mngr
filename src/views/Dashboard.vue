@@ -6,8 +6,7 @@
     <div v-if="showForm" class="modal">
       <div class="modal__mask" >
         <div class="modal__content">
-          <button @click="toggleForm">awdawdawdawd</button>
-          <AccountForm :emitName="'create-account'" @create-account="createAccount"/>
+          <AccountForm :emitName="'create-account'" @create-account="createAccount" @close-form="toggleForm"/>
         </div>
       </div>
     </div>
@@ -78,12 +77,13 @@ export default {
         transition: opacity 0.5s ease;
     }
     &__content {
-        display: flex;
         margin: 15% auto;
+        display: flex;
+        flex-direction: column;
         width: 80%; 
         background-color: #fff;
-        border-radius: 5px;
-        padding: 20px;
+        border-radius: 15px;
+        padding: 3vh 0;
     }
   }
 </style>

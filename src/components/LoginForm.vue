@@ -57,21 +57,21 @@ export default {
             margin: 5px;
             border-radius: 15px;
             background-color: #fff;
-            border: rgba(211, 211, 211, 0.383) solid;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            padding: 10px 20px;
+            border: none;
+            padding: 14px 28px;
         }
 
         &__submit {
-            margin: 5px auto;
-            width: 50%; 
+            margin: 5px auto 0;
+            width: 60%;
             color: white;
             border-radius: 15px;
-            border: 1px solid #eb4634;
-            background-color: #eb4634;
+            border: none;
+            background-color: #E05959;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             font-weight: bold;
-            padding: 10px 25px;
+            padding: 14px 28px;
         }
     }
 

@@ -1,11 +1,11 @@
 <template>
     <div class="account-content">
-        <div class="account-text">
+        <div @click="toggleDisplay" class="account-text">
             <span class="account-text__date">date-add</span>
             <span class="account-text__title">{{ account.name }}</span>
         </div>
-        <i @click="toggleDisplay" class="account-content__btn fas fa-pen"></i>
-        <i @click="toggleDisplay" class="account-content__btn fas fa-trash-alt"></i>
+        <i @click="toggleEdit" class="account-content__btn fas fa-pen"></i>
+        <i @click="deleteAccount(account.id)" class="account-content__btn fas fa-trash-alt"></i>
     </div>
     <div v-if="showModal" class="modal">
         <div class="modal__mask">
@@ -15,18 +15,17 @@
                         <span class="modal__title">
                             {{ account.name }}
                         </span>
-                        <button class="modal__close" @click="toggleModal">x</button>
+                        <i @click="toggleModal" class="modal__close fas fa-times-circle"></i>
                     </div>
                     <ul class="labels">
                         <li class="labels__el">{{ account.description }}</li>
                         <li class="labels__el">{{ account.url }}</li>
                         <li class="labels__el">{{ account.username }}</li>
                         <li class="labels__el">{{ account.password }}</li>
-                        <li class="labels__el--delete" @click="deleteAccount(account.id)"> Delete </li>
                     </ul>
                 </div>
                 <div v-if="edit" class="display-edition">
-                    <AccountForm :emitName="'edit-account'" @close-modal="toggleModal"/>
+                    <AccountForm @close-form="toggleModal" :emitName="'edit-account'" />
                 </div>
             </div>
         </div>
@@ -140,27 +139,26 @@ export default {
             margin: 15% auto;
             width: 80%; 
             background-color: #fff;
-            border-radius: 5px;
+            border-radius: 15px;
             padding: 20px;
         }
 
         &__header {
+            margin: 0 30px 5px 30px;
             display: flex;
-            padding: 10px;
+            flex-direction: row;
+            justify-content: space-between;
         }
 
         &__title {
+            font-size: 1.5rem;
             font-weight: bold;
+            color: #655C5C;
         }
 
         &__close {
-            margin-left: auto;
-            flex-basis: 25%;
-            background-color: #eb4634;
-            color: white;
-            border-radius: 5px;
-            border: none;
-            padding: 5px;
+            color: #E05959;
+            font-size: 2rem;
         }
     }
 
@@ -172,20 +170,12 @@ export default {
         text-transform: uppercase;
         padding: 0;
         &__el {
-            margin: 5px auto;
-            width: 90%;
-            border: 1px solid #eb4634;
-            border-radius: 5px;
+            margin: 10px auto;
+            width: 80%;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             padding: 10px;
-            &--delete {
-                margin: 5px auto;
-                width: 60%;
-                border: none;
-                border-radius: 5px;
-                background-color: #eb4634;
-                color: white;
-                padding: 10px;
-            }
         }
     }
 </style>
