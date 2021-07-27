@@ -38,7 +38,7 @@ export default {
         height: 100%;
         width: 100%;
         margin: auto;
-        margin-top: 30vh;
+        padding-top: 30vh;
     }
 
     .register-form {
@@ -57,18 +57,21 @@ export default {
 
         &__input {
             margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #eb4634; 
-            padding: 10px;
+            border-radius: 15px;
+            background-color: #fff;
+            border: rgba(211, 211, 211, 0.383) solid;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 10px 20px;
         }
 
         &__submit {
             margin: 5px auto;
             width: 50%; 
             color: white;
-            border-radius: 5px;
+            border-radius: 15px;
             border: 1px solid #eb4634;
             background-color: #eb4634;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             font-weight: bold;
             padding: 10px 25px;
         }

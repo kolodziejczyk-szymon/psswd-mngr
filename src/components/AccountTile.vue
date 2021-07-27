@@ -93,6 +93,7 @@ export default {
         flex-direction: row;
         justify-content: space-evenly;
         border-radius: 15px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         background-color: #fff;
         padding: 15px 25px;
 

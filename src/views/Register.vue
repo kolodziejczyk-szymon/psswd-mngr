@@ -15,7 +15,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .register {
-    margin-top: 30vh;
-  }
+
 </style>

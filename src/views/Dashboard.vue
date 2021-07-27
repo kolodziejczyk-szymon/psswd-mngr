@@ -56,7 +56,6 @@ export default {
 
   .dashboard {
     min-height: 100vh;
-    background-color: #F8F8F8;
     &__name {
       margin: 0 10px;
       text-align: left;
