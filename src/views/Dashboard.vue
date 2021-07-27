@@ -1,11 +1,14 @@
 <template>
-  <Navbar :email="user.email" @log-out="$emit('log-out')" @add-new="toggleForm"></Navbar>
-  <Accounts></Accounts>
-  <div v-if="showForm" class="modal">
-    <div class="modal__mask" >
-      <div class="modal__content">
-        <button @click="toggleForm">awdawdawdawd</button>
-        <AccountForm :emitName="'create-account'" @create-account="createAccount"/>
+  <div class="dashboard">
+    <div class="dashboard__name">Hello, {{ user.email }}</div>
+    <Navbar :email="user.email" @log-out="$emit('log-out')" @add-new="toggleForm"></Navbar>
+    <Accounts></Accounts>
+    <div v-if="showForm" class="modal">
+      <div class="modal__mask" >
+        <div class="modal__content">
+          <button @click="toggleForm">awdawdawdawd</button>
+          <AccountForm :emitName="'create-account'" @create-account="createAccount"/>
+        </div>
       </div>
     </div>
   </div>
@@ -50,6 +53,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+  .dashboard {
+    min-height: 100vh;
+    background-color: #F8F8F8;
+    &__name {
+      margin: 0 10px;
+      text-align: left;
+      font-size: 2rem;
+      color: #655C5C;
+      padding: 3vh 5vw;
+    }
+  }
+
   .modal {
     &__mask {
         position: fixed;

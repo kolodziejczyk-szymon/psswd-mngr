@@ -1,10 +1,11 @@
 <template>
     <div class="account-content">
         <div class="account-text">
+            <span class="account-text__date">date-add</span>
             <span class="account-text__title">{{ account.name }}</span>
         </div>
-        <button class="account-content__show" @click="toggleEdit">Show</button>
-        <button class="account-content__show" @click="toggleDisplay">Show</button>
+        <i @click="toggleDisplay" class="account-content__btn fas fa-pen"></i>
+        <i @click="toggleDisplay" class="account-content__btn fas fa-trash-alt"></i>
     </div>
     <div v-if="showModal" class="modal">
         <div class="modal__mask">
@@ -91,28 +92,31 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        border: 1px solid #eb4634;
-        border-radius: 5px;
-        padding: 5px 10px;
+        border-radius: 15px;
+        background-color: #fff;
+        padding: 15px 25px;
 
-        &__show {
+        &__btn {
             margin: auto;
-            flex-basis: 25%;
-            background-color: #eb4634;
-            color: white;
-            border-radius: 5px;
-            border: none;
-            padding: 5px;
+            flex-basis: 10%;
+            font-size: 1.5rem;
+            color: #E05959;
+            padding: 10px;
         }
     }
 
     .account-text {
-        flex-basis: 75%;
+        flex-basis: 80%;
         display: flex;
         flex-direction: column;
+        color: #655C5C;
         text-align: left;
         padding: 5px 0;
+        &__date {
+            font-size: .75rem;
+        }
         &__title {
+            font-size: 1.5rem;
             font-weight: bold;
         }
     }

@@ -69,11 +69,12 @@ export default {
 }
 
 #app {
-  margin: 5vh 0 30vh 0;
+  min-height: 100vh;
+  margin: 0;
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #eb4634;
+  color: #E05959;
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <RegisterForm ></RegisterForm>
+  <div class="register">
+    <RegisterForm ></RegisterForm>
+  </div>
 </template>
 
 <script>
@@ -12,6 +14,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+  .register {
+    margin-top: 30vh;
+  }
 </style>

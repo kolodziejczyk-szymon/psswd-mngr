@@ -1,5 +1,5 @@
 <template>
-  <LoginForm></LoginForm>
+    <LoginForm></LoginForm>
 </template>
 
 <script>
@@ -12,6 +12,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 
 </style>

@@ -36,6 +36,7 @@ export default {
         height: 100%;
         width: 100%;
         margin: auto;
+        margin-top: 30vh;
     }
 
     .login-form {

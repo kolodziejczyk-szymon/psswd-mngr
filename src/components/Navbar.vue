@@ -1,8 +1,8 @@
 <template>
     <div class="navigation">
-        <div class="navigation__link">Hello, {{ email }}</div>
-        <button class="navigation__link" @click="$emit('add-new')">Add</button>
-        <button class="navigation__link" @click="$emit('log-out')">Log out</button>
+        <i class="navigation__link fas fa-home"></i>
+        <i @click="$emit('add-new')" class="navigation__link fas fa-plus-circle"></i>
+        <i @click="$emit('log-out')" class="navigation__link fas fa-sign-out-alt"></i>
     </div>
 </template>
 
@@ -24,17 +24,15 @@ export default {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
-        justify-content: space-around;
-        background-color: #eb4634;
-        padding: 10px 20px;
+        padding: 20px 20px;
 
         &__link {
             flex-basis: 30%;
             background-color: transparent;
             border: none;
-            font-size: .75rem;
+            font-size: 2.5rem;
             text-decoration: none;
-            color: white
+            color: #E05959;
         }
     }
     
