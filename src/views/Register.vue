@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <RegisterForm ></RegisterForm>
+    <RegisterForm @registered="register" ></RegisterForm>
   </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
   name: 'Register',
   components: {
     RegisterForm
+  },
+  methods: {
+    register(payload) {
+      this.$emit('registered', payload)
+    }
   }
 }
 </script>

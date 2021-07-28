@@ -1,4 +1,5 @@
 <template>
+  <InfoModal v-if="isInfo"/>
   <router-view
   @logged-in="loginUser"
   @log-out="logoutUser"
@@ -7,11 +8,18 @@
 </template>
 
 <script>
+import InfoModal from './components/InfoModal'
 
 export default {
   name: 'App',
-  // nie jestem pewien, czy emits powinno się w tym miejscu znajdować
-  emits: ['log-out', 'logged-in', 'create-account'],
+  components: {
+    InfoModal,
+  },
+  computed: {
+    isInfo() {
+      return this.$store.state.modal.isVisible
+    }
+  },
   watch: {
     $route () {
       if(this.$route.path == '/') {
