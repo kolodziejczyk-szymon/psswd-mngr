@@ -1,4 +1,4 @@
-import { service } from "./service";
+import { apiClient } from "./apiClient";
 import Aes from 'crypto-js/aes'
 
 export async function registerUser(email, password) {
@@ -7,7 +7,7 @@ export async function registerUser(email, password) {
     window.crypto.getRandomValues(randomKey);
     const auth = Aes.encrypt(window.btoa(randomKey), password).toString();
 
-    return service
+    return apiClient
         .post('/registration', {
             email,
             password,
@@ -23,7 +23,7 @@ export async function registerUser(email, password) {
 
 export async function loginUser(login, password) {
 
-    return service
+    return apiClient
       .post('/login', {
           login,
           password

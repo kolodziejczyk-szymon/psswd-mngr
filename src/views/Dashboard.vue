@@ -1,12 +1,12 @@
 <template>
   <div class="dashboard">
     <div class="dashboard__name">Hello, {{ user.email }}</div>
-    <Navbar :email="user.email" @log-out="$emit('log-out')" @add-new="toggleForm"></Navbar>
+    <Navbar :email="user.email" @log-out="logoutAndRedirect" @add-new="toggleForm"></Navbar>
     <Accounts></Accounts>
     <div v-if="showForm" class="modal">
       <div class="modal__mask" >
         <div class="modal__content">
-          <AccountForm :emitName="'create-account'" @create-account="createAccount" @close-form="toggleForm"/>
+          <AccountForm :emitName="'create-account'" @close-form="toggleForm"/>
         </div>
       </div>
     </div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 import Navbar from '../components/Navbar.vue';
 import Accounts from '../components/Accounts.vue';
@@ -39,9 +40,12 @@ export default {
     },
   },
   methods: {
-    createAccount(payload) {
-      this.$emit('create-account', payload)
-      this.toggleForm()
+    ...mapActions([
+      'logoutUser'
+    ]),
+    logoutAndRedirect() {
+      this.$router.push('/login')
+      this.logoutUser()
     },
     toggleForm() {
       this.showForm = !this.showForm

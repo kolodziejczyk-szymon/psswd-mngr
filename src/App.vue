@@ -1,10 +1,6 @@
 <template>
   <InfoModal v-if="isInfo"/>
-  <router-view
-  @logged-in="loginUser"
-  @log-out="logoutUser"
-  @create-account="createAccount"
-  @registered="registerUser"/>
+  <router-view/>
 </template>
 
 <script>
@@ -19,52 +15,6 @@ export default {
     isInfo() {
       return this.$store.state.modal.isVisible
     }
-  },
-  watch: {
-    $route () {
-      if(this.$route.path == '/') {
-        this.authenticateUser()
-      }
-    }
-  },
-  methods: {
-    async loginUser(auth) {
-      await this.$store.dispatch('logIn', {
-        login: auth[0],
-        password: auth[1]
-      })
-      this.authenticateUser()
-    },
-    async registerUser(payload) {
-      await this.$store.dispatch('register', {
-        login: payload[0],
-        password: payload[1],
-      }).then(this.$router.push('login'))
-      
-    },
-    async createAccount(payload) {
-      await this.$store.dispatch('addAccount', {
-        name: payload[0],
-        description: payload[1],
-        url: payload[2],
-        username: payload[3],
-        password: payload[4]
-      })
-    },
-    authenticateUser() {
-      if (this.$store.state.status.loggedIn) {
-        this.$router.push('/');
-      } else {
-        this.$router.push('/login');
-      }
-    },
-    logoutUser() {
-      this.$store.dispatch('logoutUser');
-      this.authenticateUser()
-    }
-  }, 
-  created() {
-    this.authenticateUser()
   },
 }
 </script>

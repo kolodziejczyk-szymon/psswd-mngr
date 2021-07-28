@@ -3,8 +3,8 @@ import { createAccount, getUsersAccounts, deleteAccount } from '../services/acco
 
 export default {
     async logIn ({ state }, payload) {
-        let user = await loginUser(payload.login, payload.password)
-        if (payload){
+        let user = await loginUser(payload.email, payload.password)
+        if (payload.email && payload.password){
             let accounts = await getUsersAccounts(user.email)
             this.commit('loginSuccess', { state, user, accounts})
         } else {
@@ -36,10 +36,10 @@ export default {
             this.commit('creationFailure', { state })
         }
     },
-    async deleteAccount({ state }, payload) {
-        await deleteAccount(payload.id)
-        if (payload) {
-            this.commit('deletionSuccess', { state , payload })
+    async deleteAccount({ state }, id) {
+        await deleteAccount(id)
+        if (id) {
+            this.commit('deletionSuccess', { state , id })
         } else {
             this.commit('deletionFailure')
         }
@@ -47,5 +47,8 @@ export default {
     logoutUser () {
         this.commit('logout')
     },
+    // authenticateUser () {
+    //     console.log()
+    // }
   }
   

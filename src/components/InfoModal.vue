@@ -22,6 +22,7 @@ export default {
 
 <style scoped lang="scss">
     .info {
+        display: none;
         position: absolute;
         width: 100%;
         bottom:0px;

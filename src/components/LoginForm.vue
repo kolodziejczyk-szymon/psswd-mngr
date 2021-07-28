@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <form class="login-form" @submit.prevent="login" method="post">
+      <form class="login-form" @submit.prevent="loginAndRedirect({email, password})" method="post">
         <h3 class="login-form__title">Log in</h3>
         <input class="login-form__input" name="email" type="text" placeholder="Email address" v-model="email">
         <input class="login-form__input" name="password" type="password" placeholder="Password" v-model="password">
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
     name: 'LoginForm',
@@ -23,8 +24,12 @@ export default {
         }
     },
     methods: {
-        login() {
-            this.$emit('logged-in', [this.email, this.password])
+        ...mapActions ([
+            'logIn'
+        ]),
+        loginAndRedirect(payload) {
+            this.logIn(payload)
+            this.$router.push('/')
         }
     }
 }

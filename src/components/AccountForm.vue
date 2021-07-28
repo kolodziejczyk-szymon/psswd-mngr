@@ -4,17 +4,23 @@
         <i @click="$emit('close-form')" class="modal__close fas fa-times-circle"></i>
     </div>
 
-    <form class="account-form" @submit.prevent="createAccount" method="post">
-    <input class="account-form__input" name="name" type="text" placeholder="Name" v-model="name">
-    <input class="account-form__input" name="description" type="text" placeholder="Description" v-model="description">
-    <input class="account-form__input" name="url" type="text" placeholder="Address" v-model="url">
-    <input class="account-form__input" name="username" type="text" placeholder="Username" v-model="username">
-    <input class="account-form__input" name="password" type="password" placeholder="Password" v-model="password">
-    <button class="account-form__submit" type="submit">Submit</button>
+    <form class="account-form"
+    @submit.prevent="addAccount(
+        {name, description, url, username, password}
+    )"
+    method="post">
+        <input class="account-form__input" name="name" type="text" placeholder="Name" v-model="name">
+        <input class="account-form__input" name="description" type="text" placeholder="Description" v-model="description">
+        <input class="account-form__input" name="url" type="text" placeholder="Address" v-model="url">
+        <input class="account-form__input" name="username" type="text" placeholder="Username" v-model="username">
+        <input class="account-form__input" name="password" type="password" placeholder="Password" v-model="password">
+        <button class="account-form__submit" type="submit">Submit</button>
     </form>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     name: 'AccountForm',
     emits: ['create-account', 'close-form'],
@@ -31,11 +37,9 @@ export default {
         }
     },
     methods: {
-        createAccount() {
-            this.$emit('create-account', [
-                this.name, this.description, this.url, this.username, this.password
-            ])
-        }
+        ...mapActions([
+            'addAccount'
+        ]),
     }
 }
 </script>

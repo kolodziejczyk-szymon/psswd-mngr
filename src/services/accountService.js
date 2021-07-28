@@ -1,7 +1,7 @@
-import { service } from "./service";
+import { apiClient } from "./apiClient";
 
 export async function getUsersAccounts(email) {
-    return service
+    return apiClient
     .post('/account/all', {
         email,
     }, {
@@ -15,7 +15,7 @@ export async function getUsersAccounts(email) {
 
 export async function createAccount(name, description, url, username, password, email) {
 
-    return service
+    return apiClient
         .post('/account', {
             name: name,
             description,
@@ -34,7 +34,7 @@ export async function createAccount(name, description, url, username, password, 
 
 export async function updateAccount(id, name, description, url, username, password) {
 
-    return service
+    return apiClient
     .put('/account/edit', {
         id,
         description,
@@ -53,7 +53,7 @@ export async function updateAccount(id, name, description, url, username, passwo
 
 export async function deleteAccount(id) {
 
-    return service
+    return apiClient
     .delete(`/account/delete/${id}`, {
         headers: {
             'Content-Type': 'application/json'

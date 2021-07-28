@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <form class="register-form" @submit.prevent="register" method="post">
+      <form class="register-form" @submit.prevent="registerAndRedirect({email, password})" method="post">
         <h3 class="register-form__title">Register</h3>
         <input class="register-form__input" name="email" type="text" placeholder="Email address" v-model="email">
         <input class="register-form__input" name="password" type="password" placeholder="Password" v-model="password">
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
     name: 'RegisterForm',
@@ -25,10 +26,14 @@ export default {
         }
     },
     methods: {
-        register() {
-            this.$emit('registered', [this.email, this.password])
+        ...mapActions ([
+            'register'
+        ]),
+        registerAndRedirect(payload) {
+            this.register(payload.email, payload.password)
+            this.$router.push('/')
         }
-   }
+    }
 }
 </script>
 

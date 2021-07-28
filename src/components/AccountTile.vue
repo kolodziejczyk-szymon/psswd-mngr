@@ -34,6 +34,7 @@
 
 <script>
 import AccountForm from '../components/AccountForm.vue';
+import { mapActions } from 'vuex'
 import { enc } from 'crypto-js'
 import Aes from 'crypto-js/aes'
 
@@ -58,6 +59,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions ([
+            'deleteAccount'
+        ]),
         toggleModal() {
             this.showModal = !this.showModal
         },
@@ -75,9 +79,9 @@ export default {
                 this.edit = false
             }
         },
-        async deleteAccount(id) {
-            await this.$store.dispatch('deleteAccount', {id})
-    },
+    //     async deleteAccount(id) {
+    //         await this.$store.dispatch('deleteAccount', {id})
+    // },
         decrypt(message) {
             return Aes.decrypt(message, this.auth).toString(enc.Utf8);
         }

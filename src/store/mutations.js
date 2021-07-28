@@ -22,12 +22,13 @@ export const mutations = {
     creationFailure() {
         console.log('Failure.')
     },
-    deletionSuccess(state, {payload}) {
-        console.log('Success.')
-        state.accounts = state.accounts.filter(item => item.id !== payload.id);
+    deletionSuccess(state, {id}) {
+        console.log('Account deleted successfully.')
+        console.log(id)
+        state.accounts = state.accounts.filter(item => item.id !== id);
     },
     deletionFailure() {
-        console.log('Failure.')
+        console.log('An error occured while deleting the account.')
     },
     logout() {
         this.state.status.loggedIn = false;
