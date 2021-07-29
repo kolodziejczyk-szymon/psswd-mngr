@@ -60,10 +60,10 @@ export default {
 
         &__input {
             margin: 5px;
-            border-radius: 15px;
             background-color: #fff;
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            border-radius: 15px;
             border: none;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
             padding: 14px 28px;
         }
 
@@ -71,11 +71,11 @@ export default {
             margin: 5px auto 0;
             width: 60%;
             color: white;
+            font-weight: bold;
+            background-color: #E05959;
             border-radius: 15px;
             border: none;
-            background-color: #E05959;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            font-weight: bold;
             padding: 14px 28px;
         }
     }

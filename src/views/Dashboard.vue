@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <div class="dashboard__name">Hello, {{ user.email }}</div>
+    <p class="dashboard__name">Hello, {{ user.email }}</p>
     <Navbar :email="user.email" @log-out="logoutAndRedirect" @add-new="toggleForm"></Navbar>
     <Accounts></Accounts>
     <div v-if="showForm" class="modal">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import Navbar from '../components/Navbar.vue';
 import Accounts from '../components/Accounts.vue';
@@ -35,17 +35,17 @@ export default {
     AccountForm,
   },
   computed: {
-    user() {
-      return this.$store.state.user
-    },
+    ...mapState([
+      'user'
+    ]),
   },
   methods: {
     ...mapActions([
       'logoutUser'
     ]),
     logoutAndRedirect() {
-      this.$router.push('/login')
       this.logoutUser()
+      this.$router.push('/login')
     },
     toggleForm() {
       this.showForm = !this.showForm
@@ -62,7 +62,7 @@ export default {
     &__name {
       margin: 0 10px;
       text-align: left;
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #655C5C;
       padding: 3vh 5vw;
     }

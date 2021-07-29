@@ -1,9 +1,12 @@
 <template>
-  <InfoModal v-if="isInfo"/>
+    <div class="errors" v-if="errors">
+      <InfoModal @close-modal="deleteNotification" :error="error" v-for="error in errors" v-bind:key="error"/>
+    </div>
   <router-view/>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import InfoModal from './components/InfoModal'
 
 export default {
@@ -12,10 +15,15 @@ export default {
     InfoModal,
   },
   computed: {
-    isInfo() {
-      return this.$store.state.modal.isVisible
+    errors() {
+      return this.$store.state.errors
     }
-  },
+  }, 
+  methods: {
+    ...mapActions([
+      'createNotification', 'deleteNotification',
+    ]),
+  }   
 }
 </script>
 
@@ -36,4 +44,5 @@ export default {
   text-align: center;
   color: #E05959;
 }
+
 </style>

@@ -79,9 +79,6 @@ export default {
                 this.edit = false
             }
         },
-    //     async deleteAccount(id) {
-    //         await this.$store.dispatch('deleteAccount', {id})
-    // },
         decrypt(message) {
             return Aes.decrypt(message, this.auth).toString(enc.Utf8);
         }
@@ -127,13 +124,13 @@ export default {
 
     .modal {
         &__mask {
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
+            width: 100%;
+            height: 100%;
+            overflow: auto;
             background-color: rgba(0, 0, 0, 0.5);
             transition: opacity 0.5s ease;
         }

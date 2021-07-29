@@ -1,6 +1,5 @@
 import { createStore } from 'vuex';
 import { mutations } from './mutations'
-import getters from './getters'
 import actions from './actions'
 
 const store = createStore({
@@ -11,16 +10,11 @@ const store = createStore({
               loggedIn: false,
           },
           accounts: [],
-          modal : {
-              isVisible: true,
-              type: '',
-              text: 'placeholder'
-          }
+          errors: [],
         }
       },
     actions,
     mutations,
-    getters,
 })
 
 export default store

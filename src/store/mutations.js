@@ -32,7 +32,13 @@ export const mutations = {
     },
     logout() {
         this.state.status.loggedIn = false;
-        this.state.user = null;
+        this.state.user = null
     },
+    createNotification(state, payload) {
+        state.errors.push(payload.text)
+    },
+    deleteNotification(state, payload) {
+        state.errors = state.errors.filter(error => error !== payload.error);
+    }
   }
   

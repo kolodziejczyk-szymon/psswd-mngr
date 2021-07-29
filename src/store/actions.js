@@ -3,21 +3,29 @@ import { createAccount, getUsersAccounts, deleteAccount } from '../services/acco
 
 export default {
     async logIn ({ state }, payload) {
-        let user = await loginUser(payload.email, payload.password)
-        if (payload.email && payload.password){
+        let user = await loginUser(payload.email, payload.password).catch(err => {
+            this.commit('createNotification', { state, err })
+        })
+        if (payload.email && payload.password && user){
             let accounts = await getUsersAccounts(user.email)
-            this.commit('loginSuccess', { state, user, accounts})
+            this.commit('loginSuccess', { state, user, accounts })
         } else {
             this.commit('loginFailure', { state })
         }
     },
+    logoutUser () {
+        this.commit('logout')
+    },
     async register({ state }, payload) {
-        let res = await registerUser(payload.login, payload.password)
-        console.log(res)
-        if (payload){
+        let res = await registerUser(payload.email, payload.password)
+        if (res.data.status === "OK"){
+            let text = "Konto zostało utworzone."
             this.commit('registerSuccess', { state })
+            this.commit('createNotification', { state, text })
         } else {
+            let text = res.data.message
             this.commit('registerFailure', { state })
+            this.commit('createNotification', { state, text })
         }
     },
     async addAccount({ state }, payload) {
@@ -39,16 +47,16 @@ export default {
     async deleteAccount({ state }, id) {
         await deleteAccount(id)
         if (id) {
-            this.commit('deletionSuccess', { state , id })
+            this.commit('deletionSuccess', { state, id })
         } else {
             this.commit('deletionFailure')
         }
     },
-    logoutUser () {
-        this.commit('logout')
+    async createNotification({ state }, payload) {
+        this.commit('createNotification', { state }, payload)
     },
-    // authenticateUser () {
-    //     console.log()
-    // }
+    async deleteNotification({ state }, error) {
+        this.commit('deleteNotification', { state, error })
+    }
   }
   

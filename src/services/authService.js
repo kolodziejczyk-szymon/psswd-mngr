@@ -6,7 +6,6 @@ export async function registerUser(email, password) {
     const randomKey = new Uint8Array(128);
     window.crypto.getRandomValues(randomKey);
     const auth = Aes.encrypt(window.btoa(randomKey), password).toString();
-
     return apiClient
         .post('/registration', {
             email,
@@ -16,8 +15,11 @@ export async function registerUser(email, password) {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response => {
-            return response.data
+        }).catch(err => {
+            return err
+        })
+        .then(response => {
+            return response
         })
 }
 
