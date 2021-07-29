@@ -42,5 +42,5 @@ export default {
         &__content {
             margin: auto;
         }
-    }
+}
 </style>

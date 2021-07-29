@@ -4,7 +4,8 @@ import { createAccount, getUsersAccounts, deleteAccount } from '../services/acco
 export default {
     async logIn ({ state }, payload) {
         let user = await loginUser(payload.email, payload.password).catch(err => {
-            this.commit('createNotification', { state, err })
+            let text = err.message
+            this.commit('createNotification', { state, text })
         })
         if (payload.email && payload.password && user){
             let accounts = await getUsersAccounts(user.email)
@@ -39,8 +40,12 @@ export default {
                 state.user.email,
                 state.user.auth
             )
+            let text = "Dodano."
+            this.commit('createNotification', { state, text })
             this.commit('creationSuccess', { state, newAccount } )
         } else {
+            let text = "Wystąpił błąd podczas dodawania."
+            this.commit('createNotification', { state, text })
             this.commit('creationFailure', { state })
         }
     },
